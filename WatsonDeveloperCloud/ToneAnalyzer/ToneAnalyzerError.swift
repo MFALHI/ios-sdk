@@ -19,6 +19,27 @@ import ObjectMapper
 
 extension ToneAnalyzer {
     
+    /*internal struct ToneAnalyzerError: JSONEncodable, JSONDecodable {
+        var description: String?
+        var error: String?
+        var code: Int?
+        
+        init(json: JSON) throws {
+            description = try? json.string("description")
+            error = try? json.string("error")
+            code = try? json.int("code")
+        }
+        
+        func toJSON() -> JSON {
+            var json = [String: JSON]()
+            if let description = description { json["description"] = .String(description) }
+            if let error = error { json["error"] = .String(error) }
+            if let code = code { json["code"] = .Int(code) }
+            return JSON.Dictionary(json)
+        }
+    }*/
+    
+    
     internal struct ToneAnalyzerError: WatsonError {
         var description: String!
         var error: String!

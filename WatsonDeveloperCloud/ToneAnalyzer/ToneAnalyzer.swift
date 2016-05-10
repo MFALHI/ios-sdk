@@ -15,6 +15,7 @@
  **/
 
 import Foundation
+import Freddy
 
 /**
  * The IBM Watson The Tone Analyzer service uses linguistic analysis to detect 
@@ -43,6 +44,18 @@ public class ToneAnalyzer: WatsonService {
             serviceURL: Constants.serviceURL, username: username, password: password)
         
         self.init(authStrategy: authStrategy)
+    }
+    
+    private func dataToError(data: NSData) -> NSError? {
+        do {
+            let json = try JSON(data: data)
+            let error = try json.string("error")
+            let code = try json.int("code")
+            let userInfo = [NSLocalizedFailureReasonErrorKey: error]
+            return NSError(domain: Constants.errorDomain, code: code, userInfo: userInfo)
+        } catch {
+            return nil
+        }
     }
 
     /**
